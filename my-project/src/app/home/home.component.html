@@ -1,0 +1,75 @@
+<div id="homeCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div *ngFor="let i of carousel_items; let index=index"
+      class="carousel-item"
+      [ngClass]="{active: index==0}"
+      style="height:500px">
+      <img class="d-block w-100 h-100" [src]="i.img">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ i.title }}</h5>
+        <p>{{ i.description }}</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+  <ol class="carousel-indicators">
+    <li data-target="#homeCarousel" 
+      *ngFor="let i of carousel_items; let index=index"
+      data-slide-to="index" 
+      [ngClass]="{active: index==0}">
+    </li>
+  </ol>
+</div>
+
+ 
+<div class="container mt-3 mb-3">
+  <div class="card-columns">
+    <div class="card" *ngFor="let i of cards; let index=index">
+      <a routerLink="/card/{{ index }}">
+        <img class="card-img-top" [src]="i.img">
+      </a>
+      <div class="card-body">
+        <h5 class="card-title">{{ i.title }}</h5>
+        <p class="card-text">{{ i.description.short }}</p>
+        <div class="text-right">
+          <a href="#" data-toggle="modal" attr.data-target="#modal_{{ index }}"
+            class="btn btn-danger">อ่านต่อ...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade"
+  *ngFor="let i of cards; let index=index"
+  id="modal_{{ index }}">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ i.title }}</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="w-100" [src]="i.img">
+          </div>
+          <div class="col-md-8">
+            <p [innerHtml]="i.description.short"></p>
+            <hr>
+            <p [innerHtml]="i.description.full"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
